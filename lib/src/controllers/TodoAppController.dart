@@ -12,6 +12,9 @@ part of controller;
   //changed _listTasksView to non-final 'cos I need to assign value based on _vm
   //either this or keep final and use a factory for _listTasksView
   ListTasksView _listTasksView;
+
+  TotalTasksView _totalTasksView;
+
   final AddTaskView _addTaskView = new AddTaskView();
 
   ToDoAppController(this._repos)
@@ -29,9 +32,13 @@ part of controller;
   void start()
   {
     _listTasksView = new ListTasksView(_vm);
+    _totalTasksView = new TotalTasksView(_vm);
+    //need to refactor the views into _masterView
     //_masterView.showView();
   }
-//  //Void is void, has only once instance -- null
+  //where to validate changing tasks? Check for duplicates? Null-checker?
+  //In controller because it controls model, viewModels & views?
+
   void _handleAddTaskRequest(String message)
   {
     //System.out.println("Controller got message from View: " + message );
@@ -50,6 +57,7 @@ part of controller;
 
   void _addTask(String taskDescription) {
     //create a task and add to the domain model
+
     _repos.addTask(new Task(taskDescription, false));
 
     _vm.addTask(taskDescription);

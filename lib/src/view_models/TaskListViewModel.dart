@@ -8,8 +8,8 @@ class TaskListViewModel
   //keep McVVM & its purpose in mind, don't create type dependencies b/w
   //(couple) classes that might compile without each other
   // e.g. no model (Task) in viewModels etc.
-  final StreamController<String> _onAddTaskController = new StreamController.broadcast();
-  Stream<String> get onTaskAdded => _onAddTaskController.stream;
+  final StreamController<String> _onAddTaskInModelController = new StreamController.broadcast();
+  Stream<String> get onTaskAdded => _onAddTaskInModelController.stream;
 
   TaskListViewModel(Iterable<String> tasks)
   {
@@ -25,7 +25,7 @@ class TaskListViewModel
     //fire an event in the views when change happens
     //_onChange.fireEvent(task);
     //add an event to stream
-    _onAddTaskController.add(task);
+    _onAddTaskInModelController.add(task);
     if (_tasksDesc.indexOf(task) >= 0){
       return false;
     }

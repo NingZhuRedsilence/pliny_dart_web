@@ -8,6 +8,7 @@ class AddTaskView {
   ButtonElement _btnAddTask;
   String _taskName;
 
+  //broadcast or single subscription? For now, only one listener, but in the future?
   final StreamController<String> _onAddTaskRequest = new StreamController.broadcast();
   Stream<String> get onAddRequest => _onAddTaskRequest.stream;
 
@@ -18,6 +19,7 @@ class AddTaskView {
     _inputBox = querySelector('#to-do-input');
     _btnAddTask = querySelector('#add-task');
     _btnAddTask.onClick.listen((e) { _addToDoItem(); });
+    //no return value passed to listener
   }
 
   void _addToDoItem()
