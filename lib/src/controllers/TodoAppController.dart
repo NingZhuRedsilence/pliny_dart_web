@@ -8,9 +8,6 @@ part of controller;
   final TaskRepository _repos;
 
   TaskListViewModel _vm ;
-  //changed _listTasksView to non-final 'cos I need to assign value based on _vm
-  //either this or keep final and use a factory for _listTasksView
-
   ListTasksView _listTasksView;
   TotalTasksView _totalTasksView;
   final ToolbarView _toolbarView = new ToolbarView();
