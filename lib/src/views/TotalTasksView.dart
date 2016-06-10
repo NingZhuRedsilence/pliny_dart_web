@@ -4,36 +4,36 @@ part of views;
  * Created by Ning on 06/09/2016.
  */
 class TotalTasksView {
-  UListElement _tasksDisplay;
+  UListElement _displayArea;
   TaskListViewModel _vm;
 
   TotalTasksView(TaskListViewModel vm) {
-    _tasksDisplay = querySelector('#to-do-total-list');
-    _tasksDisplay.children.clear();
+    _displayArea = querySelector('#to-do-total-list');
+    _displayArea.children.clear();
 
     _vm = vm;
-    print(_vm);
-    _updateNumOfTasks();
+    _updateNumberOfTasks();
+
     _vm.onTaskAdded.listen(_handleChangeInVM);
   }
 
   void hide() {
-    _tasksDisplay.style.display = 'none';
+    _displayArea.style.display = 'none';
   }
 
   void show() {
-    _tasksDisplay.style.display = 'block';
+    _displayArea.style.display = 'block';
   }
 
   void _handleChangeInVM(String task) {
-    _updateNumOfTasks();
+    _updateNumberOfTasks();
   }
 
-  void _updateNumOfTasks() {
-    var totalTaskDisplay = new LIElement();
+  void _updateNumberOfTasks() {
+    var totalNumberDisplay = new LIElement();
+    totalNumberDisplay.text = _vm.tasks.length;
 
-    totalTaskDisplay.text = _vm.tasks.length;
-    _tasksDisplay.children.clear();
-    _tasksDisplay.children.add(totalTaskDisplay);
+    _displayArea.children.clear();
+    _displayArea.children.add(totalNumberDisplay);
   }
 }

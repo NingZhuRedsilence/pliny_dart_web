@@ -5,12 +5,12 @@ part of views;
  */
 
 class ListTasksView {
-  UListElement _tasksDisplay;
+  UListElement _displayArea;
   TaskListViewModel _vm;
 
   ListTasksView(TaskListViewModel vm) {
-    _tasksDisplay = querySelector('#to-do-list');
-    _tasksDisplay.children.clear();
+    _displayArea = querySelector('#to-do-list');
+    _displayArea.children.clear();
     _vm = vm;
     _displayDataFromVM(_vm);
 
@@ -18,21 +18,21 @@ class ListTasksView {
   }
 
   void hide() {
-    _tasksDisplay.style.display = 'none';
+    _displayArea.style.display = 'none';
   }
 
   void show() {
-    _tasksDisplay.style.display = 'block';
+    _displayArea.style.display = 'block';
   }
 
   void _addTaskDescToDisplay(String taskDesc) {
     var newTaskDesc = new LIElement();
     newTaskDesc.text = "\n" + taskDesc;
-    _tasksDisplay.children.add(newTaskDesc);
+    _displayArea.children.add(newTaskDesc);
   }
 
   void _displayDataFromVM(TaskListViewModel vm) {
-    _tasksDisplay.children.clear();
+    _displayArea.children.clear();
     for (String taskDesc in vm.tasks) {
       _addTaskDescToDisplay(taskDesc);
     }

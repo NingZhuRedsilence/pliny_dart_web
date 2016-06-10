@@ -3,30 +3,29 @@ part of controller;
 /**
  * Created by Ning on 06/08/2016.
  */
-class ToDoAppController {
-  final TaskRepository _repos;
+class TodoAppController {
+  final TaskRepository _iTaskRepos;
+  final ToolbarView _toolbarView = new ToolbarView();
+  final AddTaskView _addTaskView = new AddTaskView();
 
   TaskListViewModel _vm;
   ListTasksView _listTasksView;
   TotalTasksView _totalTasksView;
-  final ToolbarView _toolbarView = new ToolbarView();
 
-  final AddTaskView _addTaskView = new AddTaskView();
-
-  ToDoAppController(this._repos) {
+  TodoAppController(this._iTaskRepos) {
     /**
      * Translate model to view model.
      */
-    _vm = _translateToVM(_repos);
+    _vm = _transformModelDataToVM(_iTaskRepos);
     _totalTasksView = new TotalTasksView(_vm);
     _totalTasksView.hide();
 
-    _addTaskView.onAddRequest.listen(_handleAddTaskRequest);
-    _toolbarView.onViewListRequest.listen((e) {
-      _handleListButtonClicked();
+    _addTaskView.onAddTaskRequest.listen(_handleAddTaskRequest);
+    _toolbarView.onShowListRequest.listen((e) {
+      _handleShowListRequest();
     });
-    _toolbarView.onViewTotalRequest.listen((e) {
-      _handleTotalsButtonClicked();
+    _toolbarView.onShowTotalRequest.listen((e) {
+      _handleShowTotalRequest();
     });
   }
 
@@ -35,7 +34,7 @@ class ToDoAppController {
   }
 
   void _addTask(String taskDescription) {
-    _repos.addTask(new Task(taskDescription, false));
+    _iTaskRepos.addTask(new Task(taskDescription, false));
     _vm.addTask(taskDescription);
   }
 
@@ -43,17 +42,17 @@ class ToDoAppController {
     _addTask(message);
   }
 
-  void _handleListButtonClicked() {
+  void _handleShowListRequest() {
     _listTasksView.show();
     _totalTasksView.hide();
   }
 
-  void _handleTotalsButtonClicked() {
+  void _handleShowTotalRequest() {
     _listTasksView.hide();
     _totalTasksView.show();
   }
 
-  TaskListViewModel _translateToVM(TaskRepository repos) {
+  TaskListViewModel _transformModelDataToVM(TaskRepository repos) {
     List<String> taskDescriptions = [];
 
     for (Task task in repos.tasks) {

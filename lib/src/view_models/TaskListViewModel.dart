@@ -4,27 +4,26 @@ part of view_models;
  * Created by Ning on 6/06/2016.
  */
 class TaskListViewModel {
-  final List<String> _tasksDesc = [];
-
-  final StreamController<String> _onAddTaskInModelController =
+  final List<String> _taskDescriptions = [];
+  final StreamController<String> _onAddTaskToVMController =
       new StreamController.broadcast();
-  TaskListViewModel(Iterable<String> tasks) {
-    for (String task in tasks) {
-      _tasksDesc.add(task);
+
+  TaskListViewModel(Iterable<String> taskDescriptions) {
+    for (String task in taskDescriptions) {
+      _taskDescriptions.add(task);
     }
   }
 
-  Stream<String> get onTaskAdded => _onAddTaskInModelController.stream;
+  Stream<String> get onTaskAdded => _onAddTaskToVMController.stream;
 
-  Iterable<String> get tasks => _tasksDesc;
+  Iterable<String> get tasks => _taskDescriptions;
 
   bool addTask(String task) {
-    if (_tasksDesc.indexOf(task) >= 0) {
+    if (_taskDescriptions.indexOf(task) >= 0) {
       return false;
     } else {
-      _onAddTaskInModelController.add(task);
-      _tasksDesc.add(task);
-      print("testing viewModel's to addBtn click");
+      _onAddTaskToVMController.add(task);
+      _taskDescriptions.add(task);
       return true;
     }
   }

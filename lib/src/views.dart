@@ -7,5 +7,5 @@ import 'view_models.dart';
 
 part 'views/AddTaskView.dart';
 part 'views/ListTasksView.dart';
-part 'views/ToolBarView.dart';
+part 'views/ToolbarView.dart';
 part 'views/TotalTasksView.dart';
