@@ -13,11 +13,15 @@ part of views;
     //grabbing the same element as the ListTasksView does, might be a problem
     //_tasksDisplay = querySelector('#to-do-list');
     // try a different element
+    //Note 2: grabbing the same element as the ListTasksView does doesn't trigger a warning
+    //But whoever gets called the last in controller gets the element for show
     _tasksDisplay = querySelector('#to-do-total-list');
+    _tasksDisplay.children.clear();
+
     _vm = vm;
     print(_vm);
     _updateNumOfTasks();
-   _vm.onTaskAdded.listen(_handleChangeInVM);
+    _vm.onTaskAdded.listen(_handleChangeInVM);
 
   }
 
@@ -41,5 +45,16 @@ part of views;
     totalTaskDisplay.text = _vm.tasks.length;
     _tasksDisplay.children.clear();
     _tasksDisplay.children.add(totalTaskDisplay);
+  }
+
+  void show()
+  {
+    _tasksDisplay.style.display = 'block';
+  }
+
+  void hide()
+  {
+    _tasksDisplay.style.display = 'none';
+
   }
 }

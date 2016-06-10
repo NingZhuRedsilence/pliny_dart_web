@@ -23,15 +23,14 @@ class TaskListViewModel
 
   bool addTask(String task) {
     //fire an event in the views when change happens
-    //_onChange.fireEvent(task);
     //add an event to stream
-    _onAddTaskInModelController.add(task);
     if (_tasksDesc.indexOf(task) >= 0){
       return false;
     }
     else {
+      _onAddTaskInModelController.add(task);
       _tasksDesc.add(task);
-      //print("testing model's to addBtn click");
+      print("testing viewModel's to addBtn click");
       return true;
     }
   }

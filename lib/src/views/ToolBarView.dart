@@ -7,13 +7,13 @@ part of views;
   ButtonElement _totalsButton;
 
   //broadcast or single subscription? For now, only one listener, but in the future?
-  final StreamController<Void> _onListClickedController = new StreamController.broadcast();
+  final StreamController _onListClickedController = new StreamController.broadcast();
 
-  Stream<Void> get onViewListRequest => _onListClickedController.stream;
+  Stream get onViewListRequest => _onListClickedController.stream;
 
-  final StreamController<Void> _onTotalsClickedController = new StreamController.broadcast();
+  final StreamController _onTotalsClickedController = new StreamController.broadcast();
 
-  Stream<Void> get OnViewTotalRequest => _onTotalsClickedController.stream;
+  Stream get onViewTotalRequest => _onTotalsClickedController.stream;
 
    ToolbarView()
   {
@@ -25,11 +25,11 @@ part of views;
 
   }
 
-  _showList() {
+  void _showList() {
     _onListClickedController.add(null);
   }
 
-  _showTotal() {
+  void _showTotal() {
     _onTotalsClickedController.add(null);
   }
 }

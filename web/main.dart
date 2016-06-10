@@ -9,10 +9,6 @@ void main() {
   new ToDoAppController(repos).start();
   //Task _task = new Task("hello", true);
   //  toDoInput = querySelector('#to-do-input');
-  DivElement div = querySelector('#output');
-  div.innerHtml = 'Task is ' ;//+ _task.description;
-  print(div);
 
-  //print(_task.description);
 }
 

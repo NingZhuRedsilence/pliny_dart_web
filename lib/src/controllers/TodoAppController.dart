@@ -8,12 +8,14 @@ part of controller;
   final TaskRepository _repos;
 
   TaskListViewModel _vm ;
-
   //changed _listTasksView to non-final 'cos I need to assign value based on _vm
   //either this or keep final and use a factory for _listTasksView
-  ListTasksView _listTasksView;
 
+  ListTasksView _listTasksView;
   TotalTasksView _totalTasksView;
+  final ToolbarView _toolbarView = new ToolbarView();
+  // MasterView is to contain and set positions for all views.
+  // This role is fulfilled by index.html
 
   final AddTaskView _addTaskView = new AddTaskView();
 
@@ -25,35 +27,48 @@ part of controller;
    _vm = _translateToVM(_repos);
    //ok to put this line at the initialization line? Since whatever the vw changes to will notify the view?
     // nope --> compilation error: 'controller#_vm' is only available in instance methods
+   //can't use (e) =>_handleAddTaskRequest here, not button result
+   _totalTasksView = new TotalTasksView(_vm);
+   _totalTasksView.hide();
+   //_listTasksView = new ListTasksView(_vm);
+  //commented out to fix the duplicating display of added task problem
+
    _addTaskView.onAddRequest.listen(_handleAddTaskRequest);
 
+   //the above line requires void onData(String) as an argument but the line below asks for (dynamic) -> void?
+   _toolbarView.onViewListRequest.listen((e){_handleListButtonClicked();});
+   _toolbarView.onViewTotalRequest.listen((e) {_handleTotalsButtonClicked();});
  }
 
   void start()
   {
     _listTasksView = new ListTasksView(_vm);
-    _totalTasksView = new TotalTasksView(_vm);
-    //need to refactor the views into _masterView
-    //_masterView.showView();
+    //need to refactor the views into _masterView?
   }
   //where to validate changing tasks? Check for duplicates? Null-checker?
   //In controller because it controls model, viewModels & views?
 
   void _handleAddTaskRequest(String message)
   {
-    //System.out.println("Controller got message from View: " + message );
     _addTask(message);
   }
 
-//  void _handleListButtonClicked(Void forget)
-//  {
-//    //_masterView.setDisplayView(_listTasksView);
-//  }
-//
-//  void _handleTotalsButtonClicked(Void forget)
-//  {
-//   // _masterView.setDisplayView(_totalsTaskView);
-//  }
+  void _handleListButtonClicked()
+  {
+    // or, make a method update() or showView() in views with the body
+    // _view = querySelector('#tag');
+    print(_listTasksView);
+    _listTasksView.show();
+    _totalTasksView.hide();
+  }
+
+  void _handleTotalsButtonClicked()
+  {
+    print(_totalTasksView);
+    _listTasksView.hide();
+    _totalTasksView.show();
+
+  }
 
   void _addTask(String taskDescription) {
     //create a task and add to the domain model
