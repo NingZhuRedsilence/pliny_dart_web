@@ -5,6 +5,8 @@ part of models;
 
 class TaskRepositoryInMemory extends TaskRepository {
   final List<Task> _tasks = [];
+  @override
+  Iterable<Task> get tasks => _tasks;
 
   TaskRepositoryInMemory() {
     _tasks
@@ -12,9 +14,6 @@ class TaskRepositoryInMemory extends TaskRepository {
       ..add(new Task("Feed dog.", false))
       ..add(new Task("Take out trash.", true));
   }
-
-  @override
-  Iterable<Task> get tasks => _tasks;
 
   bool addTask(Task newTask) {
     _tasks.add(newTask);

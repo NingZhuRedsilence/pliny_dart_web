@@ -1,36 +1,31 @@
 part of views;
 
 class ToolbarView {
-  ButtonElement _showListButton;
-  ButtonElement _showTotalButton;
+  final ButtonElement _showListButton = querySelector('#view-list-button');
+  final ButtonElement _showTotalButton = querySelector('#view-total-button');
 
-  final StreamController _onShowListRequestController =
+  final StreamController _onShowListRequestedController =
       new StreamController.broadcast();
+  Stream get onShowListRequested => _onShowListRequestedController.stream;
 
-  final StreamController _onShowTotalRequestController =
+  final StreamController _onShowTotalRequestedController =
       new StreamController.broadcast();
+  Stream get onShowTotalRequested => _onShowTotalRequestedController.stream;
 
   ToolbarView() {
-    _showListButton = querySelector('#view-list-button');
-    _showTotalButton = querySelector('#view-total-button');
-
     _showListButton.onClick.listen((e) {
-      _showList();
+      _handleShowListRequested();
     });
     _showTotalButton.onClick.listen((e) {
-      _showTotal();
+      _handleShowTotalRequested();
     });
   }
 
-  Stream get onShowListRequest => _onShowListRequestController.stream;
-
-  Stream get onShowTotalRequest => _onShowTotalRequestController.stream;
-
-  void _showList() {
-    _onShowListRequestController.add(null);
+  void _handleShowListRequested() {
+    _onShowListRequestedController.add(null);
   }
 
-  void _showTotal() {
-    _onShowTotalRequestController.add(null);
+  void _handleShowTotalRequested() {
+    _onShowTotalRequestedController.add(null);
   }
 }

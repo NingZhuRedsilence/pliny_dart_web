@@ -4,17 +4,14 @@ part of views;
  * Created by Ning on 06/09/2016.
  */
 class TotalTasksView {
-  UListElement _displayArea;
-  TaskListViewModel _vm;
+  final UListElement _displayArea = querySelector('#to-do-total-list');
+  final TaskListViewModel _vm;
 
-  TotalTasksView(TaskListViewModel vm) {
-    _displayArea = querySelector('#to-do-total-list');
+  TotalTasksView(this._vm) {
     _displayArea.children.clear();
-
-    _vm = vm;
     _updateNumberOfTasks();
 
-    _vm.onTaskAdded.listen(_handleChangeInVM);
+    _vm.onTaskAdded.listen(_handleTaskAddedToVM);
   }
 
   void hide() {
@@ -25,7 +22,7 @@ class TotalTasksView {
     _displayArea.style.display = 'block';
   }
 
-  void _handleChangeInVM(String task) {
+  void _handleTaskAddedToVM(String task) {
     _updateNumberOfTasks();
   }
 

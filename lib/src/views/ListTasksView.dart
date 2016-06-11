@@ -5,16 +5,14 @@ part of views;
  */
 
 class ListTasksView {
-  UListElement _displayArea;
-  TaskListViewModel _vm;
+  final UListElement _displayArea = querySelector('#to-do-list');
+  final TaskListViewModel _vm;
 
-  ListTasksView(TaskListViewModel vm) {
-    _displayArea = querySelector('#to-do-list');
+  ListTasksView(this._vm) {
     _displayArea.children.clear();
-    _vm = vm;
     _displayDataFromVM(_vm);
 
-    _vm.onTaskAdded.listen(_handleChangeInVM);
+    _vm.onTaskAdded.listen(_handleTaskAddedToVM);
   }
 
   void hide() {
@@ -38,7 +36,7 @@ class ListTasksView {
     }
   }
 
-  void _handleChangeInVM(String task) {
+  void _handleTaskAddedToVM(String task) {
     _addTaskDescToDisplay(task);
   }
 }

@@ -5,8 +5,11 @@ part of view_models;
  */
 class TaskListViewModel {
   final List<String> _taskDescriptions = [];
-  final StreamController<String> _onAddTaskToVMController =
+  Iterable<String> get tasks => _taskDescriptions;
+
+  final StreamController<String> _onTaskAddedController =
       new StreamController.broadcast();
+  Stream<String> get onTaskAdded => _onTaskAddedController.stream;
 
   TaskListViewModel(Iterable<String> taskDescriptions) {
     for (String task in taskDescriptions) {
@@ -14,17 +17,10 @@ class TaskListViewModel {
     }
   }
 
-  Stream<String> get onTaskAdded => _onAddTaskToVMController.stream;
-
-  Iterable<String> get tasks => _taskDescriptions;
-
   bool addTask(String task) {
-    if (_taskDescriptions.indexOf(task) >= 0) {
-      return false;
-    } else {
-      _onAddTaskToVMController.add(task);
+    _onTaskAddedController.add(task);
       _taskDescriptions.add(task);
       return true;
-    }
+
   }
 }

@@ -4,24 +4,21 @@ part of views;
  * Created by nz9 on 6/2/2016.
  */
 class AddTaskView {
-  ButtonElement _btnAddTask;
-  String _taskDescription;
-  InputElement _inputBox;
-  final StreamController<String> _onAddTaskRequestController =
+  final ButtonElement _btnAddTask = querySelector('#add-task-button');
+  final InputElement _inputBox = querySelector('#to-do-input');
+
+  final StreamController<String> _onAddTaskRequestedController =
       new StreamController.broadcast();
+  Stream<String> get onAddTaskRequested => _onAddTaskRequestedController.stream;
 
   AddTaskView() {
-    _inputBox = querySelector('#to-do-input');
-    _btnAddTask = querySelector('#add-task');
     _btnAddTask.onClick.listen((e) {
       _addTodoItem();
     });
   }
 
-  Stream<String> get onAddTaskRequest => _onAddTaskRequestController.stream;
-
   void _addTodoItem() {
-    _taskDescription = _inputBox.value;
-    _onAddTaskRequestController.add(_taskDescription);
+    String taskDescription = _inputBox.value;
+    _onAddTaskRequestedController.add(taskDescription);
   }
 }
